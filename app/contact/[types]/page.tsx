@@ -1,0 +1,197 @@
+"use client";
+import { Oswald } from "next/font/google";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { PiBuildingOfficeFill } from "react-icons/pi";
+import { useState, useEffect, useRef } from "react";
+import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
+import { useParams } from "next/navigation";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+const Roboto_font = Oswald({
+  subsets: ["latin"],
+});
+const Page = () => {
+  const { types } = useParams();
+  const conTactForm = useRef<HTMLFormElement>(null);
+  const [RolType, setRolType] = useState<string>();
+  const [FirstName, setFirstName] = useState<string>();
+  const [LastName, setLastName] = useState<string>();
+  const [Email, setEmail] = useState<string>();
+  const [Message, setMessage] = useState<string>();
+  useEffect(() => {
+    if (conTactForm.current && types === "demo") {
+      conTactForm.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
+    }
+      if(types==="demo"){
+    setRolType("Request a demo")
+  }
+  }, [conTactForm]);
+  const onSubmit = () => {
+    const messageDoc = {
+      type: RolType,
+      fullName: `${FirstName} ${LastName}`,
+      email: Email,
+      message: Message,
+    };
+    console.log(messageDoc);
+    conTactForm.current?.reset();
+    toast("Message Submitted");
+  };
+  return (
+    <div className="2xl:w-[1532px] w-full min-h-screen justify-self-center px-5 py-10">
+      <div className="space-y-3">
+        <div
+          className={`text-white font-medium md:text-5xl text-3xl ${Roboto_font.className}`}
+        >
+          Contact Us
+        </div>
+        <div className="text-slate-400">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
+          exercitationem quos ipsam corporis reprehenderit magnam pariatur,
+          officiis assumenda impedit nobis, magni deleniti, facilis illo
+          laudantium officia nisi aspernatur atque dicta odio voluptatum soluta
+          nesciunt! Laudantium facere perspiciatis dolorum libero deleniti saepe
+          culpa quod velit voluptate minus? Harum iure, quo animi autem
+          necessitatibus quas maiores ratione architecto culpa temporibus
+          delectus quis repellat, fugiat natus odit. Cumque earum, ad
+          repudiandae ratione exercitationem sunt natus rerum soluta praesentium
+          amet atque quidem illum harum, dicta eligendi in unde officiis
+          voluptate velit eos maxime asperiores ullam nihil! Unde sint molestias
+          laboriosam doloribus quibusdam incidunt corrupti illum earum eum
+          consequuntur et nihil nisi aliquam tempore architecto nobis ipsam iste
+          saepe hic officia a minima, reprehenderit temporibus esse. Minus nulla
+          neque beatae cumque minima quibusdam ab ipsam odio, expedita assumenda
+          ea optio soluta maiores reprehenderit commodi sequi odit sunt quas.
+        </div>
+        <div>
+          <div
+            className={`text-white font-medium md:text-3xl text-2xl ${Roboto_font.className}`}
+          >
+            Ways to contact Us
+          </div>
+          <div className="flex gap-2 items-center">
+            Office:
+            <PiBuildingOfficeFill size={32} />
+            <div>ST#2, Flat123, UAE</div>
+          </div>
+          <div className="flex gap-2 items-center">
+            Email:
+            <div>Example123@gmail.com</div>
+          </div>
+          <div>Best Way to contact use is fill the contact form</div>
+        </div>
+      </div>
+      <div className="pt-10">
+        <div
+          className={`text-white font-medium md:text-4xl text-3xl ${Roboto_font.className}`}
+        >
+          Contact form
+        </div>
+        <div>
+          <div className="grid w-full max-w-sm items-center gap-3 py-8">
+            <Label htmlFor="picture">Select Message Type</Label>
+            {types === "demo" ? (
+              <Select value={RolType} onValueChange={setRolType}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select Message Type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Service Request">
+                    Service Request
+                  </SelectItem>
+                  <SelectItem value="Request a demo">Request a demo</SelectItem>
+                  <SelectItem value="Support">Support</SelectItem>
+                  <SelectItem value="Other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            ) : (
+              <Select onValueChange={setRolType}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select Message Type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Service Request">
+                    Service Request
+                  </SelectItem>
+                  <SelectItem value="Request a demo">Request a demo</SelectItem>
+                  <SelectItem value="Support">Support</SelectItem>
+                  <SelectItem value="Other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            )}
+          </div>
+          <form
+            ref={conTactForm}
+            onSubmit={(e) => {
+              e.preventDefault();
+              onSubmit();
+            }}
+            className="flex flex-col gap-3 w-[full]"
+          >
+            <div className="flex gap-3 ">
+              <div className="grid w-full max-w-[400px] items-center gap-3">
+                <Label htmlFor="email">First Name</Label>
+                <Input
+                  onChange={(e) => setFirstName(e.target.value)}
+                  type="text"
+                  id="email"
+                  placeholder="Jhon"
+                />
+              </div>
+              <div className="grid w-full max-w-[400px] items-center gap-3">
+                <Label htmlFor="email">Last Name</Label>
+                <Input
+                  onChange={(e) => setLastName(e.target.value)}
+                  type="text"
+                  id="email"
+                  placeholder="Doe"
+                />
+              </div>
+            </div>
+            <div className="grid w-full max-w-sm items-center gap-3">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                id="email"
+                placeholder="Email"
+              />
+            </div>
+            <div className="grid max-w-[812px] w-full items-center gap-3">
+              <Label htmlFor="email">Message</Label>
+              <Textarea
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Type your message here."
+              />
+            </div>
+            <div>
+              <Button
+                disabled={
+                  !FirstName || !LastName || !Email || !Message || !RolType
+                }
+                type="submit"
+                className="cursor-pointer"
+              >
+                Submit
+              </Button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Page;
