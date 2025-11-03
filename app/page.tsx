@@ -83,7 +83,7 @@ export default function Home() {
           </div>
         </div>
         <div className="md:flex hidden items-center justify-center lg:px-0 px-3">
-          <div className="relative 2xl:w-[750px] xl:w-[600px] lg:w-[470px] w-full 2xl:h-[580px]  xl:h-[450px] lg:h-[380px] h-[300px] bg-amber-500 rounded-r-full overflow-hidden">
+          <div className="relative 2xl:w-[750px] xl:w-[600px] lg:w-[470px] w-full 2xl:h-[580px]  xl:h-[450px] lg:h-[380px] h-[300px] rounded-r-full overflow-hidden">
             <div className=" absolute top-0 bg-black/30 w-full h-full rounded-r-full overflow-hidden object-center"></div>
             <img src="Image.jpg" className="h-full object-cover" alt="" />
           </div>
